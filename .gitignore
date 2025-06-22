@@ -1,0 +1,18 @@
+# Environment variables
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# IDE files
+.vscode/
+.idea/
+
+# Streamlit
+.streamlit/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
