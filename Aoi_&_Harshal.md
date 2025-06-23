@@ -1,8 +1,3 @@
-
-This looks like a standard judging rubric for a GenAI hackathon. It's a great way to structure the project's story. I will now create a detailed breakdown of how **Cognora+** (now "Momo") excels in each of these categories, which you can use for your final submission document or presentation.
-
----
-
 ## Cognora+ / Momo: Hackathon Judging Criteria Breakdown
 
 Here’s how our application aligns with the judging criteria, showcasing its strengths as a complete and innovative solution.
