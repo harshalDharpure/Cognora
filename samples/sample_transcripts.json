@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "transcripts": [
     {
@@ -57,4 +58,65 @@
       "cognitive_indicators": ["memory_issues", "repetitive_problems", "cognitive_decline_concern"]
     }
   ]
+=======
+{
+  "transcripts": [
+    {
+      "id": "transcript_001",
+      "text": "Today was absolutely wonderful! I went for a long walk in the park and the weather was perfect. I met some lovely people at the community garden and we talked about our favorite flowers. I feel so energized and grateful for this beautiful day. I'm looking forward to tomorrow and all the possibilities it brings.",
+      "expected_emotion": "happy",
+      "expected_score_range": [75, 95],
+      "cognitive_indicators": ["high_lexical_diversity", "coherent_thoughts", "positive_outlook"]
+    },
+    {
+      "id": "transcript_002",
+      "text": "I'm feeling a bit lonely today. My children are busy with work and I haven't heard from them in a few days. I miss our weekly calls and the sound of their voices. The house feels so quiet without their laughter. I hope they're doing well, but I wish they would call more often.",
+      "expected_emotion": "lonely",
+      "expected_score_range": [30, 50],
+      "cognitive_indicators": ["clear_expression", "emotional_awareness", "social_longing"]
+    },
+    {
+      "id": "transcript_003",
+      "text": "I had a great conversation with my neighbor this morning. We talked about gardening and she gave me some excellent tips for my roses. She's such a knowledgeable person and I always learn something new from her. I feel quite happy and content after our chat.",
+      "expected_emotion": "content",
+      "expected_score_range": [70, 85],
+      "cognitive_indicators": ["social_engagement", "learning_attitude", "positive_interaction"]
+    },
+    {
+      "id": "transcript_004",
+      "text": "I'm a bit confused about my medication schedule today. I think I might have missed a dose yesterday, but I'm not sure. I should call my doctor to clarify the timing. Everything seems a bit fuzzy and I'm worried I'm not taking care of myself properly.",
+      "expected_emotion": "confused",
+      "expected_score_range": [40, 60],
+      "cognitive_indicators": ["memory_concern", "medication_confusion", "self_doubt"]
+    },
+    {
+      "id": "transcript_005",
+      "text": "I spent the afternoon reading a fascinating book about ancient history. It's amazing how much there is to learn about the past. The author's writing style is so engaging and I found myself completely absorbed in the stories. I feel intellectually stimulated and grateful for my education.",
+      "expected_emotion": "excited",
+      "expected_score_range": [80, 95],
+      "cognitive_indicators": ["intellectual_engagement", "vocabulary_richness", "learning_enthusiasm"]
+    },
+    {
+      "id": "transcript_006",
+      "text": "I'm worried about my upcoming doctor's appointment. I've been having some trouble remembering things lately and I'm afraid it might be something serious. My friend told me it's probably just stress, but I can't help but be anxious about it.",
+      "expected_emotion": "worried",
+      "expected_score_range": [45, 65],
+      "cognitive_indicators": ["memory_concern", "health_anxiety", "cognitive_awareness"]
+    },
+    {
+      "id": "transcript_007",
+      "text": "Today I went to the library and picked up several books on different topics. I love learning new things and the library is such a peaceful place to spend time. I met a nice librarian who recommended some interesting titles. I'm excited to start reading them.",
+      "expected_emotion": "excited",
+      "expected_score_range": [75, 90],
+      "cognitive_indicators": ["intellectual_curiosity", "social_interaction", "positive_engagement"]
+    },
+    {
+      "id": "transcript_008",
+      "text": "I'm feeling frustrated because I keep forgetting where I put things. Yesterday I couldn't find my keys for hours, and today I spent twenty minutes looking for my reading glasses. It's getting worse and I don't know what to do about it.",
+      "expected_emotion": "frustrated",
+      "expected_score_range": [35, 55],
+      "cognitive_indicators": ["memory_issues", "repetitive_problems", "cognitive_decline_concern"]
+    }
+  ]
+>>>>>>> 23a3f924b5333426fb4b4fb6085453f9515378f8
 } 

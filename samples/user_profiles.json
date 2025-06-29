@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "users": [
     {
@@ -96,4 +97,104 @@
       }
     }
   ]
+=======
+{
+  "users": [
+    {
+      "user_id": "demo_user_001",
+      "name": "Sarah Johnson",
+      "age": 72,
+      "location": "San Francisco, CA",
+      "caregiver": "Dr. Michael Chen",
+      "caregiver_email": "mchen@healthcare.com",
+      "health_profile": {
+        "primary_concerns": ["memory", "social_isolation"],
+        "medications": ["vitamin_d", "blood_pressure_medication"],
+        "baseline_score": 75,
+        "alert_threshold": 50
+      },
+      "preferences": {
+        "language": "en",
+        "notification_frequency": "daily",
+        "alert_sensitivity": "medium"
+      }
+    },
+    {
+      "user_id": "user_002",
+      "name": "Robert Martinez",
+      "age": 68,
+      "location": "Austin, TX",
+      "caregiver": "Dr. Emily Rodriguez",
+      "caregiver_email": "erodriguez@seniorcare.com",
+      "health_profile": {
+        "primary_concerns": ["depression", "cognitive_decline"],
+        "medications": ["antidepressant", "sleep_aid"],
+        "baseline_score": 60,
+        "alert_threshold": 45
+      },
+      "preferences": {
+        "language": "en",
+        "notification_frequency": "twice_daily",
+        "alert_sensitivity": "high"
+      }
+    },
+    {
+      "user_id": "user_003",
+      "name": "Yuki Tanaka",
+      "age": 75,
+      "location": "Tokyo, Japan",
+      "caregiver": "Dr. Hiroshi Yamamoto",
+      "caregiver_email": "hyamamoto@tokyohealth.com",
+      "health_profile": {
+        "primary_concerns": ["anxiety", "memory"],
+        "medications": ["anxiety_medication"],
+        "baseline_score": 70,
+        "alert_threshold": 55
+      },
+      "preferences": {
+        "language": "ja",
+        "notification_frequency": "daily",
+        "alert_sensitivity": "medium"
+      }
+    },
+    {
+      "user_id": "user_004",
+      "name": "Margaret O'Connor",
+      "age": 80,
+      "location": "Dublin, Ireland",
+      "caregiver": "Dr. Patrick Walsh",
+      "caregiver_email": "pwalsh@dublinmedical.com",
+      "health_profile": {
+        "primary_concerns": ["loneliness", "mobility"],
+        "medications": ["pain_medication", "vitamin_b12"],
+        "baseline_score": 65,
+        "alert_threshold": 50
+      },
+      "preferences": {
+        "language": "en",
+        "notification_frequency": "daily",
+        "alert_sensitivity": "medium"
+      }
+    },
+    {
+      "user_id": "user_005",
+      "name": "Carlos Rodriguez",
+      "age": 70,
+      "location": "Miami, FL",
+      "caregiver": "Dr. Maria Gonzalez",
+      "caregiver_email": "mgonzalez@miamicare.com",
+      "health_profile": {
+        "primary_concerns": ["diabetes_management", "cognitive_health"],
+        "medications": ["diabetes_medication", "cholesterol_medication"],
+        "baseline_score": 80,
+        "alert_threshold": 60
+      },
+      "preferences": {
+        "language": "en",
+        "notification_frequency": "daily",
+        "alert_sensitivity": "low"
+      }
+    }
+  ]
+>>>>>>> 23a3f924b5333426fb4b4fb6085453f9515378f8
 } 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Environment variables
 .env
 
@@ -16,3 +17,23 @@ __pycache__/
 .terraform/
 *.tfstate
 *.tfstate.backup
+=======
+# Environment variables
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# IDE files
+.vscode/
+.idea/
+
+# Streamlit
+.streamlit/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+>>>>>>> 23a3f924b5333426fb4b4fb6085453f9515378f8
