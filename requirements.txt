@@ -1,0 +1,32 @@
+streamlit==1.28.1
+boto3==1.34.0
+langchain==0.1.0
+langchain-aws==0.1.0
+python-dotenv==1.0.0
+requests==2.31.0
+fpdf==2.7.0
+pandas==2.0.3
+anthropic==0.7.0
+plotly==5.15.0
+spacy==3.7.0
+openai==1.3.0
+numpy==1.24.3
+
+# Production dependencies (streamlined for Streamlit Cloud)
+sentry-sdk==1.40.0
+mixpanel==4.10.0
+prometheus-client==0.19.0
+cryptography==41.0.0
+bcrypt==4.1.0
+passlib==1.7.4
+python-jose==3.3.0
+
+# Remove heavy dependencies that might cause issues on Streamlit Cloud
+# redis>=5.0.0
+# celery>=5.3.0
+# gunicorn>=21.2.0
+# uvicorn>=0.24.0
+# fastapi>=0.104.0
+# pydantic>=2.5.0
+# python-multipart>=0.0.6
+# google-analytics-data>=0.18.0
