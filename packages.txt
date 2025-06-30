@@ -1,9 +1,9 @@
-ffmpeg
-portaudio19-dev
-python3-dev
-libfreetype6-dev
-libpng-dev
-libssl-dev
-libffi-dev
-build-essential
-pkg-config 
+   ffmpeg
+   portaudio19-dev
+   python3-dev
+   libfreetype6-dev
+   libpng-dev
+   libssl-dev
+   libffi-dev
+   build-essential
+   pkg-config
