@@ -1,13 +1,17 @@
 # System dependencies for Streamlit Cloud
-# Add any system packages that your Python packages might need
-
-# For cryptography and security packages
-libffi-dev
-libssl-dev
-
-# For audio processing (if needed)
+# Audio processing dependencies
 ffmpeg
+portaudio19-dev
+python3-dev
 
-# For PDF generation
+# PDF generation dependencies
 libfreetype6-dev
-libpng-dev 
+libpng-dev
+
+# Cryptography dependencies
+libssl-dev
+libffi-dev
+
+# Additional system packages
+build-essential
+pkg-config 

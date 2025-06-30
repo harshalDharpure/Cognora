@@ -2,6 +2,7 @@ import json
 import re
 from typing import Dict, Any
 from nlp_metrics import analyze_cognitive_metrics
+import spacy
 
 def calculate_cognora_score(emotion_analysis, cognitive_metrics: dict) -> dict:
     """
@@ -213,3 +214,5 @@ def check_alert_conditions(recent_scores: list, recent_emotions: list, recent_co
             'urgency': 'high'
         }
     # ... (rest of your logic if needed) ...
+
+nlp = spacy.load("en_core_web_lg")

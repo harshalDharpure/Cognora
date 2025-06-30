@@ -1,34 +1,25 @@
-# Core Streamlit and data processing
 streamlit==1.28.1
-pandas==2.0.3
-numpy==1.24.3
-plotly==5.15.0
-
-# AWS and cloud services
 boto3==1.34.0
-python-dotenv==1.0.0
-requests==2.31.0
-
-# AI and language processing (lightweight alternatives)
 langchain==0.0.350
 langchain-aws==0.1.17
-anthropic==0.7.0
-openai==1.3.0
-nltk==3.8.1
-
-# PDF generation
+python-dotenv==1.0.0
+requests==2.31.0
 fpdf2==2.7.8
+pandas==2.0.3
+anthropic==0.7.0
+plotly==5.15.0
+spacy==3.7.0
+openai==1.3.0
+numpy==1.24.3
 
-# Authentication and security
+# Production dependencies (streamlined for Streamlit Cloud)
+sentry-sdk==1.40.0
+mixpanel==4.10.0
+prometheus-client==0.19.0
 cryptography==41.0.0
 bcrypt==4.1.0
 passlib==1.7.4
 python-jose==3.3.0
 
-# Monitoring and analytics
-sentry-sdk==1.40.0
-mixpanel==4.10.0
-prometheus-client==0.19.0
-
-# Note: Replaced spacy with NLTK for Streamlit Cloud compatibility
-# NLTK is much lighter and doesn't require system dependencies
+# Note: Heavy dependencies removed for Streamlit Cloud compatibility
+# These can be added back if needed for production deployment
