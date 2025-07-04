@@ -112,10 +112,44 @@ def main():
         performance_monitor.end_timer('app_startup')
 
 def show_dashboard(user_id, lang_code):
-    """Displays the main dashboard."""
-    st.title(f"🧠 {get_text('momo_dashboard', lang_code)}")
-    st.markdown("---")
-    
+    st.markdown(
+        """
+        <style>
+        .main-card {
+            background-color: #E3F6FF;
+            border-radius: 18px;
+            padding: 2rem 2rem 1rem 2rem;
+            box-shadow: 0 4px 24px rgba(46,139,192,0.08);
+            margin-bottom: 2rem;
+        }
+        .section-header {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2E8BC0;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown('<div class="main-card">', unsafe_allow_html=True)
+    st.markdown(f"<h2>🩺 Welcome to Cognora+ Healthcare Dashboard</h2>", unsafe_allow_html=True)
+    st.write(f"Hello, <b>{user_id}</b>! Your wellness is our priority. Here's your health summary:", unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    col1, col2, col3 = st.columns([1,1,1])
+    with col1:
+        st.metric("Heart Rate", "72 bpm", "+2")
+        st.progress(0.72, text="Heart Health")
+    with col2:
+        st.metric("Sleep Quality", "8.1 hrs", "+0.3")
+        st.progress(0.81, text="Sleep Score")
+    with col3:
+        st.metric("Mood Score", "7.5/10", "+0.2")
+        st.progress(0.75, text="Mood")
+
+    st.markdown('<div class="section-header">🧠 Cognitive Trends</div>', unsafe_allow_html=True)
     # Check if user just completed a voice entry
     if st.session_state.get('voice_entry_completed', False):
         st.success(f"🎉 **{get_text('voice_entry_completed', lang_code)}** {get_text('wellness_score_updated', lang_code)}")
@@ -615,6 +649,12 @@ def show_dashboard(user_id, lang_code):
                     st.error(f"❌ Complete pipeline test error: {e}")
                     import traceback
                     st.code(traceback.format_exc())
+
+    st.markdown('<div class="section-header">💬 Recent Insights</div>', unsafe_allow_html=True)
+    st.info("You are doing great! Keep up your healthy habits. Remember to take breaks and stay hydrated.")
+
+    st.markdown('<div class="section-header">📅 Upcoming Appointments</div>', unsafe_allow_html=True)
+    st.success("No upcoming appointments. Schedule your next check-up for optimal wellness!")
 
 def show_daily_checkin(user_id, lang_code):
     """Displays the daily check-in page."""
