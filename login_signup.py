@@ -203,28 +203,180 @@ def check_authentication():
     return True
 
 def show_user_profile():
-    """Display user profile information."""
+    """Display user profile information with beautiful healthcare-themed UI."""
     if 'user_data' in st.session_state:
         user_data = st.session_state['user_data']
-        
-        st.sidebar.markdown("---")
-        st.sidebar.markdown("**👤 User Profile**")
-        st.sidebar.markdown(f"**Name:** {safe_convert_decimal(user_data.get('full_name', 'N/A'))}")
-        st.sidebar.markdown(f"**Email:** {safe_convert_decimal(user_data.get('email', 'N/A'))}")
-        st.sidebar.markdown(f"**Age:** {safe_convert_decimal(user_data.get('age', 'N/A'))}")
-        
+
+        # Add custom CSS for beautiful profile styling
+        st.sidebar.markdown(
+            """
+            <style>
+            .profile-header-card {
+                background: linear-gradient(135deg, #f8f9ff 0%, #e8f4fd 100%);
+                border-radius: 16px;
+                padding: 1.5rem 1rem 1rem 1rem;
+                margin: 1rem 0 1.5rem 0;
+                border: 1px solid #e1e8ed;
+                box-shadow: 0 4px 20px rgba(46,139,192,0.08);
+                text-align: center;
+            }
+            .profile-avatar {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #2E8BC0 0%, #1E5F8A 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 1rem auto;
+                font-size: 2rem;
+                color: white;
+                box-shadow: 0 4px 15px rgba(46,139,192,0.3);
+            }
+            .profile-name {
+                font-size: 1.3rem;
+                font-weight: 700;
+                color: #2E8BC0;
+                margin-bottom: 0.2rem;
+            }
+            .profile-subtitle {
+                font-size: 0.95rem;
+                color: #6c757d;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+            }
+            .profile-info-card {
+                background: #fff;
+                border-radius: 12px;
+                padding: 1rem 1.2rem;
+                margin-bottom: 1rem;
+                border-left: 4px solid #2E8BC0;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                display: flex;
+                flex-direction: column;
+                gap: 0.2rem;
+            }
+            .profile-info-label {
+                font-size: 0.85rem;
+                font-weight: 600;
+                color: #2E8BC0;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                margin-bottom: 0.1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.3rem;
+            }
+            .profile-info-value {
+                font-size: 1.05rem;
+                font-weight: 600;
+                color: #2c3e50;
+            }
+            .caregiver-card {
+                background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+                border: 1px solid #ffd6d6;
+                border-left: 4px solid #e74c3c;
+            }
+            .caregiver-card .profile-info-label {
+                color: #e74c3c;
+            }
+            .caregiver-card .profile-info-value {
+                color: #e74c3c;
+            }
+            .last-login-card {
+                background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+                border: 1px solid #b3d9ff;
+                border-left: 4px solid #3498db;
+            }
+            .last-login-card .profile-info-label {
+                color: #3498db;
+            }
+            .last-login-card .profile-info-value {
+                color: #3498db;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+
+        # Get user initials for avatar
+        full_name = safe_convert_decimal(user_data.get('full_name', 'N/A'))
+        initials = ''.join([name[0].upper() for name in full_name.split() if name]) if full_name != 'N/A' else 'U'
+
+        # Profile header card
+        st.sidebar.markdown(
+            f"""
+            <div class="profile-header-card">
+                <div class="profile-avatar">{initials}</div>
+                <div class="profile-name">{full_name}</div>
+                <div class="profile-subtitle">Cognora+ User</div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        # Email card
+        st.sidebar.markdown(
+            f"""
+            <div class="profile-info-card">
+                <div class="profile-info-label">📧 Email Address</div>
+                <div class="profile-info-value">{safe_convert_decimal(user_data.get('email', 'N/A'))}</div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        # Age card
+        st.sidebar.markdown(
+            f"""
+            <div class="profile-info-card">
+                <div class="profile-info-label">🎂 Age</div>
+                <div class="profile-info-value">{safe_convert_decimal(user_data.get('age', 'N/A'))} years old</div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        # Location card
         if user_data.get('location'):
-            st.sidebar.markdown(f"**Location:** {safe_convert_decimal(user_data['location'])}")
-        
+            st.sidebar.markdown(
+                f"""
+                <div class="profile-info-card">
+                    <div class="profile-info-label">📍 Location</div>
+                    <div class="profile-info-value">{safe_convert_decimal(user_data['location'])}</div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+        # Caregiver card
         if user_data.get('caregiver_email'):
-            st.sidebar.markdown(f"**Caregiver:** {safe_convert_decimal(user_data['caregiver_email'])}")
-        
-        # Show last login
+            st.sidebar.markdown(
+                f"""
+                <div class="profile-info-card caregiver-card">
+                    <div class="profile-info-label">🧑‍⚕️ Caregiver Contact</div>
+                    <div class="profile-info-value">{safe_convert_decimal(user_data['caregiver_email'])}</div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+        # Last login card
         if user_data.get('last_login'):
             from datetime import datetime
             try:
                 last_login = datetime.fromisoformat(user_data['last_login'].replace('Z', '+00:00'))
-                st.sidebar.markdown(f"**Last Login:** {last_login.strftime('%Y-%m-%d %H:%M')}")
+                formatted_date = last_login.strftime('%B %d, %Y')
+                formatted_time = last_login.strftime('%I:%M %p')
+                st.sidebar.markdown(
+                    f"""
+                    <div class="profile-info-card last-login-card">
+                        <div class="profile-info-label">🕒 Last Login</div>
+                        <div class="profile-info-value">{formatted_date}<br><small>{formatted_time}</small></div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
             except:
                 pass
 

@@ -129,48 +129,85 @@ def show_dashboard(user_id, lang_code):
             margin-top: 2rem;
             margin-bottom: 0.5rem;
         }
+        .healthcare-banner {
+            background: linear-gradient(135deg, #2E8BC0 0%, #1E5F8A 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(46,139,192,0.15);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .healthcare-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="30" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="70" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+        .banner-content {
+            position: relative;
+            z-index: 1;
+        }
+        .banner-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .banner-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        .banner-icons {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
         </style>
         """,
         unsafe_allow_html=True
     )
+    
+    # Healthcare Banner
+    st.markdown(
+        """
+        <div class="healthcare-banner">
+            <div class="banner-content">
+                <div class="banner-icons">🩺 🧠 💙</div>
+                <div class="banner-title">Cognora+ Healthcare Portal</div>
+                <div class="banner-subtitle">AI-Powered Wellness Monitoring & Care Support</div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
     st.markdown('<div class="main-card">', unsafe_allow_html=True)
     st.markdown(f"<h2>🩺 Welcome to Cognora+ Healthcare Dashboard</h2>", unsafe_allow_html=True)
     user_name = st.session_state.get('user_name') or st.session_state.get('user_data', {}).get('full_name') or user_id
     st.write(f"Hello, <b>{user_name}</b>! Your wellness is our priority. Here's your health summary:", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns([1,1,1])
-    with col1:
-        st.metric("Heart Rate", "72 bpm", "+2")
-        st.progress(0.72, text="Heart Health")
-    with col2:
-        st.metric("Sleep Quality", "8.1 hrs", "+0.3")
-        st.progress(0.81, text="Sleep Score")
-    with col3:
-        st.metric("Mood Score", "7.5/10", "+0.2")
-        st.progress(0.75, text="Mood")
-
-    st.markdown('<div class="section-header">🧠 Cognitive Trends</div>', unsafe_allow_html=True)
-    # Check if user just completed a voice entry
-    if st.session_state.get('voice_entry_completed', False):
-        st.success(f"🎉 **{get_text('voice_entry_completed', lang_code)}** {get_text('wellness_score_updated', lang_code)}")
-        # Clear the flag
-        st.session_state['voice_entry_completed'] = False
-    
     # Get real user data from database instead of demo data
     data_manager_instance = data_manager
     user_history = data_manager_instance.get_user_history(user_id, 7)  # Get last 7 days
-    
-    # If no real data available, use demo data as fallback
-    if not user_history:
+
+    # If no real data available, do NOT use demo data as fallback
+    if not user_history or len(user_history) == 0:
         st.warning(get_text('no_real_data_available', lang_code))
-        demo_scores = generate_demo_scores(7)
-        user_history = demo_scores
+        st.info('Start your wellness journey by completing your first daily check-in!')
+        # Hide all metrics, charts, and summaries for new users
+        return
     else:
         # Show data source info
         voice_entries = sum(1 for entry in user_history if entry.get('source') == 'voice')
         text_entries = sum(1 for entry in user_history if entry.get('source') == 'text')
-        
         if voice_entries > 0:
             st.info(f"📊 {get_text('showing_real_data', lang_code)} {len(user_history)} {get_text('entries', lang_code)} ({voice_entries} {get_text('voice', lang_code)}, {text_entries} {get_text('text', lang_code)})")
         else:
@@ -186,14 +223,23 @@ def show_dashboard(user_id, lang_code):
         if user_history:
             today_score = user_history[0].get('score', 50.0) if user_history else 50.0
             today_zone = user_history[0].get('zone_name', 'Unknown') if user_history else 'Unknown'
+            # Mood label based on score
+            if today_score >= 75:
+                mood_label = '🌟 Excellent Mood'
+            elif today_score >= 60:
+                mood_label = '😊 Good Mood'
+            elif today_score >= 45:
+                mood_label = '😐 Moderate Mood'
+            else:
+                mood_label = '😔 Needs Support'
         else:
             today_score = 50.0
             today_zone = 'Unknown'
-            
+            mood_label = 'No Data'
         st.metric(
             get_text('today_momo_score', lang_code),
             f"{today_score:.1f}",
-            f"{get_score_emoji(today_score)} {today_zone.title()}"
+            mood_label
         )
     
     with col2:
@@ -403,62 +449,63 @@ def show_dashboard(user_id, lang_code):
         - **{get_text('mindfulness', lang_code)}**
         """)
         
-        # Entry summary
+        # Entry summary - only show if there are actual entries
         if user_history and len(user_history) > 0:
-            st.subheader("📊 Entry Summary")
             voice_entries = sum(1 for entry in user_history if entry.get('source') == 'voice')
             text_entries = sum(1 for entry in user_history if entry.get('source') == 'text')
             
-            col_sum1, col_sum2 = st.columns(2)
-            with col_sum1:
-                st.metric("Voice Entries", voice_entries, "🎤")
-            with col_sum2:
-                st.metric("Text Entries", text_entries, "📝")
-            
-            # Score comparison
-            if voice_entries > 0 and text_entries > 0:
-                # Calculate average scores for each type
-                voice_scores = [entry.get('score', 0) for entry in user_history if entry.get('source') == 'voice']
-                text_scores = [entry.get('score', 0) for entry in user_history if entry.get('source') == 'text']
+            # Only show entry summary if there are actual entries
+            if voice_entries > 0 or text_entries > 0:
+                st.subheader("📊 Entry Summary")
+                col_sum1, col_sum2 = st.columns(2)
+                with col_sum1:
+                    st.metric("Voice Entries", voice_entries, "🎤")
+                with col_sum2:
+                    st.metric("Text Entries", text_entries, "📝")
                 
-                avg_voice_score = sum(voice_scores) / len(voice_scores) if voice_scores else 0
-                avg_text_score = sum(text_scores) / len(text_scores) if text_scores else 0
-                
-                st.markdown("---")
-                st.subheader("📈 Score Comparison")
-                col_score1, col_score2 = st.columns(2)
-                
-                with col_score1:
-                    st.metric(
-                        "Avg Voice Score",
-                        f"{avg_voice_score:.1f}",
-                        f"{get_score_emoji(avg_voice_score)}"
-                    )
-                with col_score2:
-                    st.metric(
-                        "Avg Text Score", 
-                        f"{avg_text_score:.1f}",
-                        f"{get_score_emoji(avg_text_score)}"
-                    )
-                
-                # Show preference insight
-                score_diff = avg_voice_score - avg_text_score
-                if abs(score_diff) > 5:
-                    if score_diff > 0:
-                        st.info("🎤 Your voice entries tend to show higher wellness scores")
+                # Score comparison - only show if both types exist
+                if voice_entries > 0 and text_entries > 0:
+                    # Calculate average scores for each type
+                    voice_scores = [entry.get('score', 0) for entry in user_history if entry.get('source') == 'voice']
+                    text_scores = [entry.get('score', 0) for entry in user_history if entry.get('source') == 'text']
+                    
+                    avg_voice_score = sum(voice_scores) / len(voice_scores) if voice_scores else 0
+                    avg_text_score = sum(text_scores) / len(text_scores) if text_scores else 0
+                    
+                    st.markdown("---")
+                    st.subheader("📈 Score Comparison")
+                    col_score1, col_score2 = st.columns(2)
+                    
+                    with col_score1:
+                        st.metric(
+                            "Avg Voice Score",
+                            f"{avg_voice_score:.1f}",
+                            f"{get_score_emoji(avg_voice_score)}"
+                        )
+                    with col_score2:
+                        st.metric(
+                            "Avg Text Score", 
+                            f"{avg_text_score:.1f}",
+                            f"{get_score_emoji(avg_text_score)}"
+                        )
+                    
+                    # Show preference insight
+                    score_diff = avg_voice_score - avg_text_score
+                    if abs(score_diff) > 5:
+                        if score_diff > 0:
+                            st.info("🎤 Your voice entries tend to show higher wellness scores")
+                        else:
+                            st.info("📝 Your text entries tend to show higher wellness scores")
                     else:
-                        st.info("📝 Your text entries tend to show higher wellness scores")
-                else:
-                    st.success("✅ Your wellness scores are consistent across both input methods")
-            
-            if voice_entries > 0 and text_entries > 0:
-                st.success("✅ You're using both voice and text input methods!")
-            elif voice_entries > 0:
-                st.info("🎤 You prefer voice input for your entries")
-            elif text_entries > 0:
-                st.info("📝 You prefer text input for your entries")
-            else:
-                st.info("Start your wellness journey with daily check-ins!")
+                        st.success("✅ Your wellness scores are consistent across both input methods")
+                
+                # Show input method preference
+                if voice_entries > 0 and text_entries > 0:
+                    st.success("✅ You're using both voice and text input methods!")
+                elif voice_entries > 0:
+                    st.info("🎤 You prefer voice input for your entries")
+                elif text_entries > 0:
+                    st.info("📝 You prefer text input for your entries")
         
         # Test button to refresh data
         if st.button(f"🔄 {get_text('refresh_dashboard_data', lang_code)}", type="secondary"):
@@ -637,7 +684,7 @@ def show_dashboard(user_id, lang_code):
                     
                     # Test saving
                     today = datetime.now().strftime('%Y-%m-%d')
-                    success = data_manager_instance.save_daily_entry(
+                    success = data_manager.save_daily_entry(
                         user_id, today, test_text, emotion_analysis, cognitive_metrics, score_data
                     )
                     
@@ -662,10 +709,6 @@ def show_daily_checkin(user_id, lang_code):
     st.title(f"📝 {get_text('daily_checkin_momo', lang_code)}")
     st.markdown("---")
     
-    # Check if we have existing analysis results
-    if 'analysis_results' in st.session_state:
-        st.info("📊 You have analysis results ready to save. Scroll down to see them and save your entry.")
-    
     # Input method selection
     input_method = st.radio(
         get_text('choose_input_method', lang_code),
@@ -678,11 +721,10 @@ def show_daily_checkin(user_id, lang_code):
     else:
         show_voice_input(user_id, lang_code)
     
-    # Show existing analysis results if available
+    # Show existing analysis results if available (only once, at the end)
     if 'analysis_results' in st.session_state:
         st.markdown("---")
         st.subheader("📊 Your Analysis Results")
-        
         results = st.session_state['analysis_results']
         display_analysis_results(
             user_id, 
