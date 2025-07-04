@@ -18,62 +18,80 @@ def safe_convert_decimal(value):
     return value
 
 def show_login_page():
-    """Display the login page."""
-    st.title("🔐 Welcome to Cognora+")
-    st.markdown("---")
-    
-    # Initialize authentication
-    initialize_auth()
-    
-    # Create tabs for login and signup
+    """Display the login page with a beautiful healthcare UI."""
+    st.markdown(
+        """
+        <style>
+        .login-card {
+            background-color: #E3F6FF;
+            border-radius: 18px;
+            padding: 2.5rem 2rem 2rem 2rem;
+            box-shadow: 0 4px 24px rgba(46,139,192,0.10);
+            margin: 2rem auto 2rem auto;
+            max-width: 420px;
+        }
+        .login-header {
+            text-align: center;
+            color: #2E8BC0;
+            font-size: 2.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .login-subtext {
+            text-align: center;
+            color: #222B45;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        body {
+            background-color: #F6FBFF !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown('<div class="login-card">', unsafe_allow_html=True)
+    st.markdown('<div class="login-header">🩺 Cognora+ Healthcare Portal</div>', unsafe_allow_html=True)
+    st.markdown('<div class="login-subtext">Welcome! Please sign in to continue.<br>Your wellness journey starts here.</div>', unsafe_allow_html=True)
+    # Tabs for login and signup
     tab1, tab2 = st.tabs(["Login", "Sign Up"])
-    
     with tab1:
         show_login_form()
-    
     with tab2:
         show_signup_form()
+    st.markdown('</div>', unsafe_allow_html=True)
 
 def show_login_form():
-    """Display the login form."""
-    st.subheader("Login to Your Account")
-    
+    """Display the login form with healthcare styling."""
+    st.subheader("")  # Remove subheader for cleaner look
     with st.form("login_form"):
         email = st.text_input("Email", placeholder="Enter your email")
         password = st.text_input("Password", type="password", placeholder="Enter your password")
-        
-        col1, col2 = st.columns([1, 1])
+        st.markdown("<div style='height: 0.5rem'></div>", unsafe_allow_html=True)
+        col1, col2 = st.columns([2, 1])
         with col1:
-            submit_button = st.form_submit_button("Login", type="primary")
+            submit_button = st.form_submit_button("Sign In", type="primary")
         with col2:
             forgot_password = st.form_submit_button("Forgot Password?")
-        
         if submit_button:
             if email and password:
                 success, message, user_data = login_user(email, password)
-                
                 if success:
                     st.success("✅ Login successful!")
-                    
-                    # Store user data in session state
                     st.session_state['authenticated'] = True
                     st.session_state['user_id'] = user_data['user_id']
                     st.session_state['user_data'] = user_data
                     st.session_state['user_email'] = user_data['email']
                     st.session_state['user_name'] = user_data['full_name']
-                    
-                    # Set user preferences
                     preferences = user_data.get('preferences', {})
                     st.session_state['language'] = preferences.get('language', 'en')
                     st.session_state['theme'] = preferences.get('theme', 'light')
-                    
                     st.balloons()
                     st.rerun()
                 else:
                     st.error(f"❌ {message}")
             else:
                 st.error("Please enter both email and password")
-        
         if forgot_password:
             st.info("Password reset functionality coming soon!")
 

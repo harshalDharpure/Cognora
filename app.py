@@ -60,7 +60,7 @@ def main():
         
         # User is authenticated, show main app
         user_id = st.session_state.get('user_id', 'demo_user')
-        user_name = st.session_state.get('user_name', 'Demo User')
+        user_name = st.session_state.get('user_name') or st.session_state.get('user_data', {}).get('full_name') or user_id
         
         # Track page view
         user_analytics.track_page_view('main_app', user_id)
@@ -135,7 +135,8 @@ def show_dashboard(user_id, lang_code):
     )
     st.markdown('<div class="main-card">', unsafe_allow_html=True)
     st.markdown(f"<h2>🩺 Welcome to Cognora+ Healthcare Dashboard</h2>", unsafe_allow_html=True)
-    st.write(f"Hello, <b>{user_id}</b>! Your wellness is our priority. Here's your health summary:", unsafe_allow_html=True)
+    user_name = st.session_state.get('user_name') or st.session_state.get('user_data', {}).get('full_name') or user_id
+    st.write(f"Hello, <b>{user_name}</b>! Your wellness is our priority. Here's your health summary:", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns([1,1,1])
