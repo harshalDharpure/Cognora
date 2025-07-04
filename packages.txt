@@ -1,13 +1,4 @@
-   setuptools
-   ffmpeg
-   portaudio19-dev
-   python3-dev
-   libfreetype6-dev
-   libpng-dev
-   libssl-dev
-   libffi-dev
-   build-essential
-   pkg-config
-   pip
-   streamlit==1.28.1
-   boto3==1.34.0
+ffmpeg
+portaudio19-dev
+build-essential
+pkg-config
