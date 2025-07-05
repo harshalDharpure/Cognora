@@ -1,6 +1,6 @@
 # 🧠 Cognora+ - AI-Powered Wellness Assistant
 
-<<<<<<< HEAD
+
 Cognora+ is an intelligent wellness monitoring system that uses AI to analyze user input (text and voice) to track emotional and cognitive health. The system provides real-time insights, generates wellness scores, and can alert caregivers when concerning patterns are detected.
 
 ## 🌟 Features
@@ -67,14 +67,13 @@ Cognora+ is an intelligent wellness monitoring system that uses AI to analyze us
 - **AI/ML**: LangChain agents for specialized analysis
 - **Cloud Infrastructure**: AWS (Bedrock, Transcribe, S3, DynamoDB, SNS)
 - **Infrastructure as Code**: Terraform for automated deployment
->>>>>>> 23a3f924b5333426fb4b4fb6085453f9515378f8
+
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - Python 3.8+
 - AWS Account with appropriate permissions
-<<<<<<< HEAD
 - AWS credentials configured
 
 ### Installation
@@ -306,7 +305,6 @@ python -c "from aws_services import *; print('AWS services test passed')"
 ```
 
 ## 📊 Application Structure
->>>>>>> 23a3f924b5333426fb4b4fb6085453f9515378f8
 
 ```
 cognora/
@@ -399,7 +397,6 @@ cognora/
 streamlit run app.py
 ```
 
-<<<<<<< HEAD
 ### Production Deployment
 ```bash
 # Using Docker
@@ -480,4 +477,4 @@ terraform init
 ---
 
 **Cognora+** - Empowering wellness through intelligent conversation analysis. 🧠✨
->>>>>>> 23a3f924b5333426fb4b4fb6085453f9515378f8
+
